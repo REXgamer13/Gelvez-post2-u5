@@ -1,0 +1,43 @@
+@host = localhost
+@port = 8080
+@baseUrl = http://{{host}}:{{port}}/api/v2/libros
+
+### 1) Crear libro con datos válidos -> 201
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "titulo": "Refactoring",
+  "autor": "MartinFowler",
+  "isbn": "9780201485677",
+  "anioPublicacion": 1999
+}
+
+### 2) Intentar crear con ISBN duplicado -> 400
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "titulo": "Otro",
+  "autor": "Autor",
+  "isbn": "9780201485677",
+  "anioPublicacion": 2020
+}
+
+### 3) Buscar libro inexistente -> 404
+
+GET {{baseUrl}}/999
+
+### 4) Crear con titulo vacio -> 400
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "autor": "X",
+  "isbn": "123"
+}
+
